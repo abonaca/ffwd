@@ -28,9 +28,9 @@ double compare(double **x_obs, double **x_mod, double **err_obs, double ***sigma
 					//printf("%lf %lf %lf \t", delta[m1], x_obs[m1][i], x_mod[m1][l]);
 				}
 			}
-			//printf("\n");
 			deltap += exp(-0.5*temp2);
 		}
+		//printf("%e\t%e\n", deltap, logdet[i]);
 		
 		// logdet = logdet - 2*log(1./K * pow(2*pi, -k/2.)), where k number of data dimensions for a given star
 		log_pdfs[i] = log(deltap) - 0.5*logdet[i];
@@ -57,7 +57,7 @@ double compare(double **x_obs, double **x_mod, double **err_obs, double ***sigma
 	med = median(N, log_pdfs);
 	
 	// remove outliers
-	limit = med - 2.*std;
+	limit = med - 3.*std;
 	
 	log_pdf = 0.;
 	for(i=0; i<N; i++){
